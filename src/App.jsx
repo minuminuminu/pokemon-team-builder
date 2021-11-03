@@ -12,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
     margin:0;
     box-sizing: border-box;
     text-decoration:none;
+    overflow-x:hidden;
   }
   body{
     background-color:#f0f0f0;
