@@ -10,6 +10,15 @@ const Container = styled.div`
   overflow-y: scroll;
 `;
 
+const PokeImage = styled.img`
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+`;
+
 export const PokemonContainer = () => {
   const [pokemons, setPokemons] = useState([]);
   const [types, setTypes] = useState([]);
@@ -64,7 +73,7 @@ export const PokemonContainer = () => {
       <div>
         {pokemons.map((pokemon) => {
           return (
-            <img
+            <PokeImage
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
               key={pokemon.id}
             />
