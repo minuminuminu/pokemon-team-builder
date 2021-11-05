@@ -11,10 +11,10 @@ const Container = styled.div`
 `;
 
 const FlexSelectedContainer = styled.div`
+  position: absolute;
+  bottom: 33%;
   width: 100%;
   height: 100%;
-  bottom: 33%;
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,12 +35,34 @@ const GridParent = styled.div`
   justify-content: center;
 `;
 
+const SelectedPokemonsContainer = styled.div`
+  margin: auto;
+  /* display: flex; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  width: 16%;
+  height: 95%;
+  background-color: blue;
+`;
+
 const SelectedPokemons = styled.div`
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background-color: grey;
-  margin: auto auto 9vh auto;
+  width: 90%;
+  height: 60%;
+  background-color: red;
+  margin: 1vh auto 3% auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SelectedPokemonDetails = styled.div`
+  width: 90%;
+  height: 30%;
+  background-color: red;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const FlexFetchContainer = styled.div`
@@ -123,12 +145,25 @@ export const PokemonContainer = () => {
       <FlexSelectedContainer>
         <SelectedContainer>
           <GridParent>
-            <SelectedPokemons />
-            <SelectedPokemons />
-            <SelectedPokemons />
-            <SelectedPokemons />
-            <SelectedPokemons />
-            <SelectedPokemons />
+            <SelectedPokemonsContainer>
+              <SelectedPokemons>SPRITE</SelectedPokemons>
+              <SelectedPokemonDetails>Charizard</SelectedPokemonDetails>
+            </SelectedPokemonsContainer>
+            <SelectedPokemonsContainer>
+              <SelectedPokemons />
+            </SelectedPokemonsContainer>
+            <SelectedPokemonsContainer>
+              <SelectedPokemons />
+            </SelectedPokemonsContainer>
+            <SelectedPokemonsContainer>
+              <SelectedPokemons />
+            </SelectedPokemonsContainer>
+            <SelectedPokemonsContainer>
+              <SelectedPokemons />
+            </SelectedPokemonsContainer>
+            <SelectedPokemonsContainer>
+              <SelectedPokemons />
+            </SelectedPokemonsContainer>
           </GridParent>
         </SelectedContainer>
       </FlexSelectedContainer>
