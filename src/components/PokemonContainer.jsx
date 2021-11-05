@@ -7,7 +7,57 @@ const Container = styled.div`
   width: 70vw;
   height: 80vh; //maybe auto for expanding per pokemon row??? idk
   border: 1px solid #c7c7c7;
-  overflow-y: scroll;
+  overflow: hidden;
+`;
+
+const FlexSelectedContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  bottom: 33%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SelectedContainer = styled.div`
+  width: 95%;
+  height: 30%;
+  border: 1px solid #c7c7c7;
+  background-color: #e2e2e2;
+`;
+
+const GridParent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SelectedPokemons = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: grey;
+  margin: auto auto 9vh auto;
+`;
+
+const FlexFetchContainer = styled.div`
+  position: absolute;
+  top: 15%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FetchContainer = styled.div`
+  width: 90%;
+  height: 60%;
+  border: 1px solid #c7c7c7;
+  background-color: #e2e2e2;
 `;
 
 const PokeImage = styled.img`
@@ -44,25 +94,25 @@ export const PokemonContainer = () => {
 
     fetchPokemons();
 
-    const fetchTypes = async () => {
-      const rawData = await fetch("https://pokeapi.co/api/v2/type");
-      const jsonData = await rawData.json();
+    //   const fetchTypes = async () => {
+    //     const rawData = await fetch("https://pokeapi.co/api/v2/type");
+    //     const jsonData = await rawData.json();
 
-      const jsonDataResults = jsonData.results;
-      const results = [];
+    //     const jsonDataResults = jsonData.results;
+    //     const results = [];
 
-      for (let i = 0; i < jsonDataResults.length - 2; i++) {
-        results.push({
-          name: jsonDataResults[i].name,
-          url: jsonDataResults[i].url,
-          id: i + 1,
-        });
-      }
+    //     for (let i = 0; i < jsonDataResults.length - 2; i++) {
+    //       results.push({
+    //         name: jsonDataResults[i].name,
+    //         url: jsonDataResults[i].url,
+    //         id: i + 1,
+    //       });
+    //     }
 
-      setTypes(results);
-    };
+    //     setTypes(results);
+    //   };
 
-    fetchTypes();
+    //   fetchTypes();
   }, []);
 
   // console.log(pokemons);
@@ -70,16 +120,30 @@ export const PokemonContainer = () => {
 
   return (
     <Container>
-      <div>
-        {pokemons.map((pokemon) => {
-          return (
-            <PokeImage
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-              key={pokemon.id}
-            />
-          );
-        })}
-      </div>
+      <FlexSelectedContainer>
+        <SelectedContainer>
+          <GridParent>
+            <SelectedPokemons />
+            <SelectedPokemons />
+            <SelectedPokemons />
+            <SelectedPokemons />
+            <SelectedPokemons />
+            <SelectedPokemons />
+          </GridParent>
+        </SelectedContainer>
+      </FlexSelectedContainer>
+      <FlexFetchContainer>
+        <FetchContainer>
+          {pokemons.map((pokemon) => {
+            return (
+              <PokeImage
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                key={pokemon.id}
+              />
+            );
+          })}
+        </FetchContainer>
+      </FlexFetchContainer>
     </Container>
   );
 };
