@@ -63,6 +63,8 @@ const SelectedPokemonDetails = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  text-transform: capitalize;
+  text-align: center;
 `;
 
 const FlexFetchContainer = styled.div`
@@ -83,7 +85,7 @@ const FetchContainer = styled.div`
 `;
 
 const PokeImage = styled.img`
-  transition: transform 0.3s;
+  transition: transform 0.2s;
 
   &:hover {
     transform: scale(1.1);
@@ -94,10 +96,17 @@ const PokeImage = styled.img`
 export const PokemonContainer = () => {
   const [pokemons, setPokemons] = useState([]);
   const [types, setTypes] = useState([]);
+  const DUMMY_DATA = [
+    {
+      name: "charizard",
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+    },
+  ];
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const rawData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=99");
+      const rawData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=30");
       const jsonData = await rawData.json();
 
       const jsonDataResults = jsonData.results;
@@ -146,8 +155,14 @@ export const PokemonContainer = () => {
         <SelectedContainer>
           <GridParent>
             <SelectedPokemonsContainer>
-              <SelectedPokemons>SPRITE</SelectedPokemons>
-              <SelectedPokemonDetails>Charizard</SelectedPokemonDetails>
+              <SelectedPokemons>
+                <img src={DUMMY_DATA[0].sprite} />
+              </SelectedPokemons>
+              <SelectedPokemonDetails>
+                {DUMMY_DATA[0].name}
+                <br />
+                Fire Air
+              </SelectedPokemonDetails>
             </SelectedPokemonsContainer>
             <SelectedPokemonsContainer>
               <SelectedPokemons />

@@ -17,16 +17,23 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 5px;
+  color: #524747;
   transition: transform 0.2s;
 
   &:hover {
     transform: scale(1.02);
   }
+  &:active {
+    color: #2b2121;
+  }
+  &:visited {
+    color: #524747;
+  }
 `;
 
 const NavBarText = styled.h1`
   font-size: x-large;
-  margin-left: 1vw;
+  margin: 1vw;
 `;
 
 export const NavBar = () => {
@@ -42,6 +49,13 @@ export const NavBar = () => {
             />
           </div>
           <NavBarText>Team Builder</NavBarText>
+          <div>
+            <img
+              src="../pokemon-logo.png"
+              alt="Pokemon Logo"
+              className="nav-image"
+            />
+          </div>
         </Wrapper>
       </Link>
     </NavBarContainer>
