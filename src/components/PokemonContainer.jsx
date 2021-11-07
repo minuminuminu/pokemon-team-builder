@@ -16,6 +16,8 @@ const FlexSelectedContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 3%;
 `;
 
 const SelectedContainer = styled.div`
@@ -38,14 +40,17 @@ const FlexFetchContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: -1;
 `;
 
 const FetchContainer = styled.div`
   width: 90%;
-  height: 60%;
+  height: 450px;
   border: 1px solid #c7c7c7;
   background-color: #e2e2e2;
+  position: absolute;
+  bottom: 5%;
+  overflow: scroll;
+  overflow-x: hidden;
 `;
 
 const PokeImage = styled.img`
@@ -91,7 +96,9 @@ export const PokemonContainer = () => {
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const rawData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=30");
+      const rawData = await fetch(
+        "https://pokeapi.co/api/v2/pokemon?limit=100"
+      );
       const jsonData = await rawData.json();
 
       const jsonDataResults = jsonData.results;

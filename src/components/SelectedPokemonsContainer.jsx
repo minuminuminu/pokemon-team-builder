@@ -5,8 +5,10 @@ const SelectedPokemonContainer = styled.div`
   /* display: flex; */
   /* align-items: center; */
   /* justify-content: center; */
-  width: 16%;
-  background-color: blue;
+  width: 14%;
+  /* background-color: blue; */
+  height: 165px;
+  border: 1px solid #c7c7c7;
 
   &:hover {
     cursor: ${(props) => (props.canDelete ? "not-allowed" : "default")};
@@ -16,17 +18,18 @@ const SelectedPokemonContainer = styled.div`
 const SelectedPokemons = styled.div`
   width: 90%;
   height: 60%;
-  background-color: red;
+  background-color: #e3e2e2;
   margin: 1vh auto 3% auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #c7c7c7;
 `;
 
 const SelectedPokemonDetails = styled.div`
   width: 90%;
   /* height: 30%; */
-  background-color: red;
+  /* background-color: red; */
   margin: auto;
   display: flex;
   justify-content: center;
