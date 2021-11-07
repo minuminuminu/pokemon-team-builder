@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { SelectedPokemonsContainer } from "./SelectedPokemonsContainer";
 
 const Container = styled.div`
   position: absolute;
@@ -11,10 +12,7 @@ const Container = styled.div`
 `;
 
 const FlexSelectedContainer = styled.div`
-  position: absolute;
-  bottom: 33%;
   width: 100%;
-  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,46 +33,12 @@ const GridParent = styled.div`
   justify-content: center;
 `;
 
-const SelectedPokemonsContainer = styled.div`
-  margin: auto;
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  width: 16%;
-  height: 95%;
-  background-color: blue;
-`;
-
-const SelectedPokemons = styled.div`
-  width: 90%;
-  height: 60%;
-  background-color: red;
-  margin: 1vh auto 3% auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const SelectedPokemonDetails = styled.div`
-  width: 90%;
-  height: 30%;
-  background-color: red;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  text-align: center;
-`;
-
 const FlexFetchContainer = styled.div`
-  position: absolute;
-  top: 15%;
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: -1;
 `;
 
 const FetchContainer = styled.div`
@@ -95,14 +59,35 @@ const PokeImage = styled.img`
 
 export const PokemonContainer = () => {
   const [pokemons, setPokemons] = useState([]);
-  const [types, setTypes] = useState([]);
+
   const DUMMY_DATA = [
     {
       name: "charizard",
       sprite:
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
+      id: 1,
+    },
+    {
+      name: "bulbasaur",
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+      id: 2,
+    },
+    {
+      name: "turtok",
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
+      id: 3,
     },
   ];
+
+  const [pokemonTeam, setPokemonTeam] = useState([
+    null,
+    ...DUMMY_DATA,
+    null,
+    null,
+  ]);
+  const [types, setTypes] = useState([]);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -146,39 +131,45 @@ export const PokemonContainer = () => {
     //   fetchTypes();
   }, []);
 
-  // console.log(pokemons);
-  // console.log(types);
+  const onDelete = (id) => {
+    const tempData = pokemonTeam.map((pokemon) => {
+      if (pokemon != null && pokemon.id === id) {
+        return null;
+      } else {
+        return pokemon;
+      }
+    });
+    setPokemonTeam(tempData);
+  };
 
   return (
     <Container>
       <FlexSelectedContainer>
         <SelectedContainer>
           <GridParent>
-            <SelectedPokemonsContainer>
-              <SelectedPokemons>
-                <img src={DUMMY_DATA[0].sprite} />
-              </SelectedPokemons>
-              <SelectedPokemonDetails>
-                {DUMMY_DATA[0].name}
-                <br />
-                Fire Air
-              </SelectedPokemonDetails>
-            </SelectedPokemonsContainer>
-            <SelectedPokemonsContainer>
-              <SelectedPokemons />
-            </SelectedPokemonsContainer>
-            <SelectedPokemonsContainer>
-              <SelectedPokemons />
-            </SelectedPokemonsContainer>
-            <SelectedPokemonsContainer>
-              <SelectedPokemons />
-            </SelectedPokemonsContainer>
-            <SelectedPokemonsContainer>
-              <SelectedPokemons />
-            </SelectedPokemonsContainer>
-            <SelectedPokemonsContainer>
-              <SelectedPokemons />
-            </SelectedPokemonsContainer>
+            {pokemonTeam.map((e, i) => {
+              if (e == null) {
+                return (
+                  <SelectedPokemonsContainer
+                    name="???"
+                    sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"
+                    onDelete={() => {}}
+                    key={i}
+                    id={null}
+                  />
+                );
+              } else {
+                return (
+                  <SelectedPokemonsContainer
+                    name={e.name}
+                    sprite={e.sprite}
+                    onDelete={() => onDelete(e.id)}
+                    key={e.id}
+                    id={e.id}
+                  />
+                );
+              }
+            })}
           </GridParent>
         </SelectedContainer>
       </FlexSelectedContainer>
