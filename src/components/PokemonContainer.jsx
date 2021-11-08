@@ -44,7 +44,7 @@ const FlexFetchContainer = styled.div`
 
 const FetchContainer = styled.div`
   width: 90%;
-  height: 450px;
+  height: 45vh;
   border: 1px solid #c7c7c7;
   background-color: #e2e2e2;
   position: absolute;
@@ -64,41 +64,18 @@ const PokeImage = styled.img`
 
 export const PokemonContainer = () => {
   const [pokemons, setPokemons] = useState([]);
-
-  const DUMMY_DATA = [
-    {
-      name: "charizard",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png",
-      id: 1,
-    },
-    {
-      name: "bulbasaur",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-      id: 2,
-    },
-    {
-      name: "turtok",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png",
-      id: 3,
-    },
-  ];
-
   const [pokemonTeam, setPokemonTeam] = useState([
     null,
-    ...DUMMY_DATA,
+    null,
+    null,
+    null,
     null,
     null,
   ]);
-  const [types, setTypes] = useState([]);
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const rawData = await fetch(
-        "https://pokeapi.co/api/v2/pokemon?limit=100"
-      );
+      const rawData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
       const jsonData = await rawData.json();
 
       const jsonDataResults = jsonData.results;
@@ -138,6 +115,38 @@ export const PokemonContainer = () => {
     //   fetchTypes();
   }, []);
 
+  const getSelectedIndex = () => {
+    for (let i = 0; i < pokemonTeam.length; i++) {
+      if (pokemonTeam[i] == null) {
+        return i;
+      }
+    }
+  };
+
+  const fetchSpecific = async (id) => {
+    const rawData = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
+    const jsonData = await rawData.json();
+    return jsonData;
+  };
+
+  const onAdd = async (selectedId) => {
+    if (pokemonTeam.every((e) => e !== null)) {
+      alert("You can't have more than 6 pokemons in your team at once!");
+      return;
+    } else {
+      const tempArr = [...pokemonTeam];
+      const clickedPokemon = await fetchSpecific(selectedId);
+      const selectedIndex = getSelectedIndex();
+
+      tempArr[selectedIndex] = {
+        name: clickedPokemon.name,
+        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedId}.png`,
+        id: selectedId,
+      };
+      setPokemonTeam(tempArr);
+    }
+  };
+
   const onDelete = (id) => {
     const tempData = pokemonTeam.map((pokemon) => {
       if (pokemon != null && pokemon.id === id) {
@@ -161,7 +170,7 @@ export const PokemonContainer = () => {
                     name="???"
                     sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"
                     onDelete={() => {}}
-                    key={i}
+                    key={`null-pokemons-${i}`}
                     id={null}
                   />
                 );
@@ -172,7 +181,7 @@ export const PokemonContainer = () => {
                     sprite={e.sprite}
                     onDelete={() => onDelete(e.id)}
                     key={e.id}
-                    id={e.id}
+                    id={`selected-pokemons-${e.id}`}
                   />
                 );
               }
@@ -187,6 +196,7 @@ export const PokemonContainer = () => {
               <PokeImage
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                 key={pokemon.id}
+                onClick={() => onAdd(pokemon.id)}
               />
             );
           })}
