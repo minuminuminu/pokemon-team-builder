@@ -140,10 +140,6 @@ export const PokemonContainer = () => {
     setPokemonTeam(tempData);
   };
 
-  const debugBtn = () => {
-    console.log(JSON.stringify(pokemonTeam));
-  };
-
   return (
     <Container>
       <FlexSelectedContainer>
@@ -179,6 +175,8 @@ export const PokemonContainer = () => {
       </FlexSelectedContainer>
       <FlexFetchContainer>
         <FetchContainer>
+          {pokemons.length == 0 && <Loading />}
+
           {pokemons.map((pokemon) => {
             return (
               <PokeImage
@@ -188,7 +186,6 @@ export const PokemonContainer = () => {
               />
             );
           })}
-          <button onClick={debugBtn}>DEBUG</button>
         </FetchContainer>
       </FlexFetchContainer>
     </Container>
