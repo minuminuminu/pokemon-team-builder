@@ -119,13 +119,19 @@ export const PokemonContainer = () => {
       const clickedPokemon = await fetchSpecific(selectedId);
       const selectedIndex = getSelectedIndex();
 
+      const filteredPokemons = pokemons.filter((pokemon) => {
+        return pokemon.id != selectedId;
+      });
+
       tempArr[selectedIndex] = {
         name: clickedPokemon.name,
         sprite: clickedPokemon.sprites.front_default,
         id: selectedId,
         types: clickedPokemon.types,
       };
+
       setPokemonTeam(tempArr);
+      setPokemons(filteredPokemons);
     }
   };
 
