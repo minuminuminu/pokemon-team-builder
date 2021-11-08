@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { SelectedPokemonsContainer } from "./SelectedPokemonsContainer";
+import { Loading } from "./Loading";
 
 const Container = styled.div`
   position: absolute;
@@ -93,26 +94,6 @@ export const PokemonContainer = () => {
     };
 
     fetchPokemons();
-
-    //   const fetchTypes = async () => {
-    //     const rawData = await fetch("https://pokeapi.co/api/v2/type");
-    //     const jsonData = await rawData.json();
-
-    //     const jsonDataResults = jsonData.results;
-    //     const results = [];
-
-    //     for (let i = 0; i < jsonDataResults.length - 2; i++) {
-    //       results.push({
-    //         name: jsonDataResults[i].name,
-    //         url: jsonDataResults[i].url,
-    //         id: i + 1,
-    //       });
-    //     }
-
-    //     setTypes(results);
-    //   };
-
-    //   fetchTypes();
   }, []);
 
   const getSelectedIndex = () => {
@@ -140,8 +121,9 @@ export const PokemonContainer = () => {
 
       tempArr[selectedIndex] = {
         name: clickedPokemon.name,
-        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${selectedId}.png`,
+        sprite: clickedPokemon.sprites.front_default,
         id: selectedId,
+        types: clickedPokemon.types,
       };
       setPokemonTeam(tempArr);
     }
@@ -158,6 +140,10 @@ export const PokemonContainer = () => {
     setPokemonTeam(tempData);
   };
 
+  const debugBtn = () => {
+    console.log(JSON.stringify(pokemonTeam));
+  };
+
   return (
     <Container>
       <FlexSelectedContainer>
@@ -172,6 +158,7 @@ export const PokemonContainer = () => {
                     onDelete={() => {}}
                     key={`null-pokemons-${i}`}
                     id={null}
+                    types={"??? ???"}
                   />
                 );
               } else {
@@ -182,6 +169,7 @@ export const PokemonContainer = () => {
                     onDelete={() => onDelete(e.id)}
                     key={e.id}
                     id={`selected-pokemons-${e.id}`}
+                    types={e.types.map((type) => type.type.name + " ")}
                   />
                 );
               }
@@ -200,6 +188,7 @@ export const PokemonContainer = () => {
               />
             );
           })}
+          <button onClick={debugBtn}>DEBUG</button>
         </FetchContainer>
       </FlexFetchContainer>
     </Container>

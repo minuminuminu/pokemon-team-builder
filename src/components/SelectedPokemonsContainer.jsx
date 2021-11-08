@@ -50,7 +50,7 @@ export const SelectedPokemonsContainer = (props) => {
       <SelectedPokemonDetails>
         {props.name}
         <br />
-        Fire Air
+        {props.types}
       </SelectedPokemonDetails>
     </SelectedPokemonContainer>
   );
