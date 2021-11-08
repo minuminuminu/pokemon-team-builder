@@ -174,10 +174,10 @@ export const PokemonContainer = () => {
                   <SelectedPokemonsContainer
                     name="???"
                     sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"
-                    onDelete={() => {}}
+                    onDelete={null}
                     key={`null-pokemons-${i}`}
-                    id={null}
-                    types="??? ???"
+                    id={i}
+                    types={["???", "???"]}
                   />
                 );
               } else {
@@ -188,7 +188,7 @@ export const PokemonContainer = () => {
                     onDelete={() => onDelete(e.id, e.name)}
                     key={e.id}
                     id={`selected-pokemons-${e.id}`}
-                    types={e.types.map((type) => type.type.name + " ")}
+                    types={e.types.map((type) => type.type.name)}
                   />
                 );
               }
