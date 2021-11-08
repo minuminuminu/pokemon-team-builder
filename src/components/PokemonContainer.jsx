@@ -135,7 +135,7 @@ export const PokemonContainer = () => {
     }
   };
 
-  const onDelete = (id) => {
+  const onDelete = (id, name) => {
     const tempData = pokemonTeam.map((pokemon) => {
       if (pokemon != null && pokemon.id === id) {
         return null;
@@ -143,7 +143,24 @@ export const PokemonContainer = () => {
         return pokemon;
       }
     });
+
+    const reInsertedObj = {
+      name: name,
+      url: `https://pokeapi.co/api/v2/pokemon/${id}/`,
+      id: id,
+    };
+
+    const insert = (arr, index, ...newItems) => [
+      ...arr.slice(0, index),
+      ...newItems,
+      ...arr.slice(index),
+    ];
+
+    const tempArr = insert(pokemons, id - 1, reInsertedObj);
+    tempArr.sort((a, b) => parseFloat(a.id) - parseFloat(b.id));
+
     setPokemonTeam(tempData);
+    setPokemons(tempArr);
   };
 
   return (
@@ -168,7 +185,7 @@ export const PokemonContainer = () => {
                   <SelectedPokemonsContainer
                     name={e.name}
                     sprite={e.sprite}
-                    onDelete={() => onDelete(e.id)}
+                    onDelete={() => onDelete(e.id, e.name)}
                     key={e.id}
                     id={`selected-pokemons-${e.id}`}
                     types={e.types.map((type) => type.type.name + " ")}
