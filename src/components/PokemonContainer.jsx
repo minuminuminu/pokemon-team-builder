@@ -76,7 +76,7 @@ export const PokemonContainer = () => {
 
   useEffect(() => {
     const fetchPokemons = async () => {
-      const rawData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=20");
+      const rawData = await fetch("https://pokeapi.co/api/v2/pokemon?limit=30");
       const jsonData = await rawData.json();
 
       const jsonDataResults = jsonData.results;
@@ -177,7 +177,7 @@ export const PokemonContainer = () => {
                     onDelete={() => {}}
                     key={`null-pokemons-${i}`}
                     id={null}
-                    types={"??? ???"}
+                    types="??? ???"
                   />
                 );
               } else {

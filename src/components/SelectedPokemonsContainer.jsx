@@ -36,6 +36,15 @@ const SelectedPokemonDetails = styled.div`
   align-items: center;
   text-transform: capitalize;
   text-align: center;
+  flex-direction: column;
+`;
+
+const Name = styled.div`
+  font-weight: 600;
+`;
+
+const Types = styled.div`
+  padding: 2px;
 `;
 
 export const SelectedPokemonsContainer = (props) => {
@@ -48,9 +57,8 @@ export const SelectedPokemonsContainer = (props) => {
         <img src={props.sprite} />
       </SelectedPokemons>
       <SelectedPokemonDetails>
-        {props.name}
-        <br />
-        {props.types}
+        <Name>{props.name}</Name>
+        <Types>{props.types}</Types>
       </SelectedPokemonDetails>
     </SelectedPokemonContainer>
   );
