@@ -3,11 +3,20 @@ import { useState, useEffect } from "react";
 import { SelectedPokemonsContainer } from "./SelectedPokemonsContainer";
 import { Loading } from "./Loading";
 
+const FullPage = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const Container = styled.div`
   position: absolute;
   top: 15%;
   width: 70vw;
-  height: 80vh; //maybe auto for expanding per pokemon row??? idk
+  height: 83vh; //maybe auto for expanding per pokemon row??? idk
   border: 1px solid #c7c7c7;
   overflow: hidden;
 `;
@@ -49,7 +58,7 @@ const FetchContainer = styled.div`
   border: 1px solid #c7c7c7;
   background-color: #e2e2e2;
   position: absolute;
-  bottom: 5%;
+  bottom: 2%;
   overflow: scroll;
   overflow-x: hidden;
 `;
@@ -164,53 +173,55 @@ export const PokemonContainer = () => {
   };
 
   return (
-    <Container>
-      <FlexSelectedContainer>
-        <SelectedContainer>
-          <GridParent>
-            {pokemonTeam.map((e, i) => {
-              if (e == null) {
-                return (
-                  <SelectedPokemonsContainer
-                    name="???"
-                    sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"
-                    onDelete={null}
-                    key={`null-pokemons-${i}`}
-                    id={i}
-                    types={["???", "???"]}
-                  />
-                );
-              } else {
-                return (
-                  <SelectedPokemonsContainer
-                    name={e.name}
-                    sprite={e.sprite}
-                    onDelete={() => onDelete(e.id, e.name)}
-                    key={e.id}
-                    id={`selected-pokemons-${e.id}`}
-                    types={e.types.map((type) => type.type.name)}
-                  />
-                );
-              }
-            })}
-          </GridParent>
-        </SelectedContainer>
-      </FlexSelectedContainer>
-      <FlexFetchContainer>
-        <FetchContainer>
-          {pokemons.length == 0 && <Loading />}
+    <FullPage>
+      <Container>
+        <FlexSelectedContainer>
+          <SelectedContainer>
+            <GridParent>
+              {pokemonTeam.map((e, i) => {
+                if (e == null) {
+                  return (
+                    <SelectedPokemonsContainer
+                      name="???"
+                      sprite="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png"
+                      onDelete={null}
+                      key={`null-pokemons-${i}`}
+                      id={i}
+                      types={["???", "???"]}
+                    />
+                  );
+                } else {
+                  return (
+                    <SelectedPokemonsContainer
+                      name={e.name}
+                      sprite={e.sprite}
+                      onDelete={() => onDelete(e.id, e.name)}
+                      key={e.id}
+                      id={`selected-pokemons-${e.id}`}
+                      types={e.types.map((type) => type.type.name)}
+                    />
+                  );
+                }
+              })}
+            </GridParent>
+          </SelectedContainer>
+        </FlexSelectedContainer>
+        <FlexFetchContainer>
+          <FetchContainer>
+            {pokemons.length == 0 && <Loading />}
 
-          {pokemons.map((pokemon) => {
-            return (
-              <PokeImage
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-                key={pokemon.id}
-                onClick={() => onAdd(pokemon.id)}
-              />
-            );
-          })}
-        </FetchContainer>
-      </FlexFetchContainer>
-    </Container>
+            {pokemons.map((pokemon) => {
+              return (
+                <PokeImage
+                  src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                  key={pokemon.id}
+                  onClick={() => onAdd(pokemon.id)}
+                />
+              );
+            })}
+          </FetchContainer>
+        </FlexFetchContainer>
+      </Container>
+    </FullPage>
   );
 };
