@@ -6,7 +6,7 @@ const SelectedPokemonContainer = styled.div`
   border: 1px solid #c7c7c7;
 
   &:hover {
-    cursor: ${(props) => (props.canDelete ? "not-allowed" : "default")};
+    cursor: ${(props) => (props.canDelete ? "pointer" : "default")};
   }
 `;
 
@@ -98,7 +98,7 @@ const getTypeColor = (str) => {
 export const SelectedPokemonsContainer = (props) => {
   return (
     <SelectedPokemonContainer
-      onClick={props.onDelete}
+      onClick={props.onDetails}
       canDelete={props.onDelete != null}
     >
       <SelectedPokemons>

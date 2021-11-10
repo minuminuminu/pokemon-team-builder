@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { SelectedPokemonsContainer } from "./SelectedPokemonsContainer";
 import { Loading } from "./Loading";
+import { PokemonDetails } from "./PokemonDetails";
 
 const FullPage = styled.div`
   position: absolute;
@@ -82,6 +83,7 @@ export const PokemonContainer = () => {
     null,
     null,
   ]);
+  const [displayModal, setDisplayModal] = useState(false);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -144,6 +146,14 @@ export const PokemonContainer = () => {
     }
   };
 
+  const onDetails = (id, name) => {
+    showModal();
+  };
+
+  const showModal = () => {
+    setDisplayModal((prev) => !prev);
+  };
+
   const onDelete = (id, name) => {
     const tempData = pokemonTeam.map((pokemon) => {
       if (pokemon != null && pokemon.id === id) {
@@ -195,7 +205,8 @@ export const PokemonContainer = () => {
                     <SelectedPokemonsContainer
                       name={e.name}
                       sprite={e.sprite}
-                      onDelete={() => onDelete(e.id, e.name)}
+                      onDelete={true}
+                      onDetails={() => onDetails(e.id, e.name)}
                       key={e.id}
                       id={`selected-pokemons-${e.id}`}
                       types={e.types.map((type) => type.type.name)}
@@ -222,6 +233,7 @@ export const PokemonContainer = () => {
           </FetchContainer>
         </FlexFetchContainer>
       </Container>
+      <PokemonDetails displayModal={displayModal} setDisplayModal={showModal} />
     </FullPage>
   );
 };
