@@ -84,8 +84,7 @@ export const PokemonContainer = () => {
     null,
   ]);
   const [displayModal, setDisplayModal] = useState(false);
-  const [clickedPokemonName, setClickedPokemonName] = useState(null);
-  const [clickedPokemonId, setClickedPokemonId] = useState(null);
+  const [clickedPokemon, setClickedPokemon] = useState({});
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -148,14 +147,13 @@ export const PokemonContainer = () => {
     }
   };
 
-  const onDetails = (id, name) => {
-    showModal(id, name);
+  const onDetails = (id, name, index) => {
+    showModal();
+    setClickedPokemon({ name: name, id: id, index: index });
   };
 
-  const showModal = (id, name) => {
+  const showModal = () => {
     setDisplayModal((prev) => !prev);
-    setClickedPokemonId(id);
-    setClickedPokemonName(name);
   };
 
   const onDelete = (id, name) => {
@@ -210,7 +208,7 @@ export const PokemonContainer = () => {
                       name={e.name}
                       sprite={e.sprite}
                       onDelete={true}
-                      onDetails={() => onDetails(e.id, e.name)}
+                      onDetails={() => onDetails(e.id, e.name, i)}
                       key={e.id}
                       id={`selected-pokemons-${e.id}`}
                       types={e.types.map((type) => type.type.name)}
@@ -240,8 +238,10 @@ export const PokemonContainer = () => {
       <PokemonDetails
         displayModal={displayModal}
         setDisplayModal={showModal}
-        name={clickedPokemonName}
-        id={clickedPokemonId}
+        name={clickedPokemon.name}
+        id={clickedPokemon.id}
+        index={clickedPokemon.index}
+        onDelete={onDelete}
       />
     </FullPage>
   );
