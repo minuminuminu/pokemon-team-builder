@@ -84,6 +84,8 @@ export const PokemonContainer = () => {
     null,
   ]);
   const [displayModal, setDisplayModal] = useState(false);
+  const [clickedPokemonName, setClickedPokemonName] = useState(null);
+  const [clickedPokemonId, setClickedPokemonId] = useState(null);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -147,11 +149,13 @@ export const PokemonContainer = () => {
   };
 
   const onDetails = (id, name) => {
-    showModal();
+    showModal(id, name);
   };
 
-  const showModal = () => {
+  const showModal = (id, name) => {
     setDisplayModal((prev) => !prev);
+    setClickedPokemonId(id);
+    setClickedPokemonName(name);
   };
 
   const onDelete = (id, name) => {
@@ -233,7 +237,12 @@ export const PokemonContainer = () => {
           </FetchContainer>
         </FlexFetchContainer>
       </Container>
-      <PokemonDetails displayModal={displayModal} setDisplayModal={showModal} />
+      <PokemonDetails
+        displayModal={displayModal}
+        setDisplayModal={showModal}
+        name={clickedPokemonName}
+        id={clickedPokemonId}
+      />
     </FullPage>
   );
 };
