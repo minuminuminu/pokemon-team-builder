@@ -136,10 +136,7 @@ export const PokemonContainer = () => {
       });
 
       tempArr[selectedIndex] = {
-        name: clickedPokemon.name,
-        sprite: clickedPokemon.sprites.front_default,
-        id: selectedId,
-        types: clickedPokemon.types,
+        ...clickedPokemon,
       };
 
       setPokemonTeam(tempArr);
@@ -149,7 +146,12 @@ export const PokemonContainer = () => {
 
   const onDetails = (id, name, index) => {
     showModal();
-    setClickedPokemon({ name: name, id: id, index: index });
+    setClickedPokemon({
+      name: name,
+      id: id,
+      index: index,
+      fullDetails: pokemonTeam[index],
+    });
   };
 
   const showModal = () => {
@@ -206,7 +208,7 @@ export const PokemonContainer = () => {
                   return (
                     <SelectedPokemonsContainer
                       name={e.name}
-                      sprite={e.sprite}
+                      sprite={e.sprites.front_default}
                       onDelete={true}
                       onDetails={() => onDetails(e.id, e.name, i)}
                       key={e.id}
@@ -241,6 +243,7 @@ export const PokemonContainer = () => {
         name={clickedPokemon.name}
         id={clickedPokemon.id}
         index={clickedPokemon.index}
+        fullDetails={clickedPokemon.fullDetails}
         onDelete={onDelete}
       />
     </FullPage>

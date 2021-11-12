@@ -8,6 +8,7 @@ const ModalContainer = styled.div`
   align-items: center;
   z-index: 1;
   background-color: #30303094;
+  color: white;
 `;
 
 const Modal = styled.div`
@@ -19,6 +20,11 @@ const Modal = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #00000042;
+`;
+
+const Li = styled.li`
+  text-transform: capitalize;
 `;
 
 const RemoveBtn = styled.button`
@@ -40,6 +46,17 @@ export const PokemonDetails = (props) => {
       {props.displayModal ? (
         <ModalContainer onClick={props.setDisplayModal}>
           <Modal>
+            <img src={props.fullDetails.sprites.front_default} />
+            <img src={props.fullDetails.sprites.back_default} />
+            <ul>
+              {props.fullDetails.stats.map((stat) => {
+                return (
+                  <Li key={"li-item-" + stat.stat.name}>
+                    {stat.stat.name} : {stat.base_stat}
+                  </Li>
+                );
+              })}
+            </ul>
             <RemoveBtn onClick={() => props.onDelete(props.id, props.name)}>
               REMOVE FROM TEAM
             </RemoveBtn>
