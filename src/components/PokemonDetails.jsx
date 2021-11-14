@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { getTypeColor } from "../getTypeColor";
 
 const ModalContainer = styled.div`
   width: 100vw;
@@ -21,6 +22,21 @@ const Modal = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #00000042;
+`;
+
+const Types = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const PokemonType = styled.div`
+  margin: 0 2px 2px 2px;
+  padding: 1px 5px 1px 5px;
+  border-radius: 150px;
+  text-transform: capitalize;
+
+  background-color: ${(props) => getTypeColor(props.type).color};
+  color: ${(props) => getTypeColor(props.type).textColor};
 `;
 
 const Li = styled.li`
@@ -46,8 +62,20 @@ export const PokemonDetails = (props) => {
       {props.displayModal ? (
         <ModalContainer onClick={props.setDisplayModal}>
           <Modal>
-            <img src={props.fullDetails.sprites.front_default} />
-            <img src={props.fullDetails.sprites.back_default} />
+            <>
+              <img src={props.fullDetails.sprites.front_default} />
+              <img src={props.fullDetails.sprites.back_default} />
+            </>
+            <Types>
+              {props.fullDetails.types.map((type, i) => (
+                <PokemonType
+                  key={`${props.id}-type-${i}-fullDetails`}
+                  type={type.type.name}
+                >
+                  {type.type.name}
+                </PokemonType>
+              ))}
+            </Types>
             <ul>
               {props.fullDetails.stats.map((stat) => {
                 return (
