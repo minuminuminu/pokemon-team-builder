@@ -29,8 +29,22 @@ const Types = styled.div`
   flex-direction: row;
 `;
 
+const SpriteType = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  text-align: center;
+  flex-direction: column;
+`;
+
+const Sprites = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 const PokemonType = styled.div`
-  margin: 0 2px 2px 2px;
+  margin: 0 1vw 2px 1vw;
   padding: 1px 5px 1px 5px;
   border-radius: 150px;
   text-transform: capitalize;
@@ -62,20 +76,23 @@ export const PokemonDetails = (props) => {
       {props.displayModal ? (
         <ModalContainer onClick={props.setDisplayModal}>
           <Modal>
-            <>
-              <img src={props.fullDetails.sprites.front_default} />
-              <img src={props.fullDetails.sprites.back_default} />
-            </>
-            <Types>
-              {props.fullDetails.types.map((type, i) => (
-                <PokemonType
-                  key={`${props.id}-type-${i}-fullDetails`}
-                  type={type.type.name}
-                >
-                  {type.type.name}
-                </PokemonType>
-              ))}
-            </Types>
+            <SpriteType>
+              <Sprites>
+                <img src={props.fullDetails.sprites.front_default} />
+                <img src={props.fullDetails.sprites.back_default} />
+              </Sprites>
+              <Types>
+                {props.fullDetails.types.map((type, i) => (
+                  <PokemonType
+                    key={`${props.id}-type-${i}-fullDetails`}
+                    type={type.type.name}
+                  >
+                    {type.type.name}
+                  </PokemonType>
+                ))}
+              </Types>
+            </SpriteType>
+
             <ul>
               {props.fullDetails.stats.map((stat) => {
                 return (
