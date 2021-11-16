@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { SelectedPokemonsContainer } from "./SelectedPokemonsContainer";
 import { Loading } from "./Loading";
 import { PokemonDetails } from "./PokemonDetails";
+import { TeamDetails } from "./TeamDetails";
 
 const FullPage = styled.div`
   position: absolute;
@@ -85,6 +86,7 @@ export const PokemonContainer = () => {
   ]);
   const [displayModal, setDisplayModal] = useState(false);
   const [clickedPokemon, setClickedPokemon] = useState({});
+  const [displayTeamDetails, setTeamDisplay] = useState(false);
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -245,6 +247,10 @@ export const PokemonContainer = () => {
         index={clickedPokemon.index}
         fullDetails={clickedPokemon.fullDetails}
         onDelete={onDelete}
+      />
+      <TeamDetails
+        displayTeamDetails={displayTeamDetails}
+        setTeamDisplay={setTeamDisplay}
       />
     </FullPage>
   );

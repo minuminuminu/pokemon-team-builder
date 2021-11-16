@@ -17,6 +17,7 @@ const Modal = styled.div`
   height: 600px;
   width: 60vw;
   border: 1px solid #000000;
+  border-radius: 15px;
   z-index: 2;
   display: flex;
   align-items: center;
