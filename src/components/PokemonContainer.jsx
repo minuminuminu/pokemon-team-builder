@@ -65,6 +65,16 @@ const FetchContainer = styled.div`
   overflow-x: hidden;
 `;
 
+const ShowTeamDetails = styled.button`
+  width: 10vw;
+  height: 40px;
+  background-color: black;
+  color: white;
+  position: absolute;
+  left: 42%;
+  top: 35%;
+`;
+
 const PokeImage = styled.img`
   transition: transform 0.2s;
 
@@ -156,6 +166,10 @@ export const PokemonContainer = () => {
     });
   };
 
+  const onShowTeam = () => {
+    setTeamDisplay(!displayTeamDetails);
+  };
+
   const showModal = () => {
     setDisplayModal((prev) => !prev);
   };
@@ -223,6 +237,9 @@ export const PokemonContainer = () => {
             </GridParent>
           </SelectedContainer>
         </FlexSelectedContainer>
+        <ShowTeamDetails onClick={() => onShowTeam()}>
+          Display Team Details
+        </ShowTeamDetails>
         <FlexFetchContainer>
           <FetchContainer>
             {pokemons.length == 0 && <Loading />}
@@ -251,6 +268,7 @@ export const PokemonContainer = () => {
       <TeamDetails
         displayTeamDetails={displayTeamDetails}
         setTeamDisplay={setTeamDisplay}
+        currentPokemonTeam={pokemonTeam}
       />
     </FullPage>
   );
