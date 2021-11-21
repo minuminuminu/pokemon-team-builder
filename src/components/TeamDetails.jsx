@@ -14,14 +14,12 @@ const ModalContainer = styled.div`
 
 const Modal = styled.div`
   position: relative;
-  height: 500px;
+  height: 800px;
   width: 90vw;
   border: 1px solid #000000;
   border-radius: 15px;
   z-index: 2;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #00000042;
 `;
 
@@ -35,6 +33,17 @@ const IndividualContainer = styled.div`
   flex-direction: column;
   align-items: center;
   text-transform: capitalize;
+`;
+
+const ImgBorder = styled.img`
+  margin: 3px;
+  background-color: #31313111;
+  border: 1px solid #313131;
+`;
+
+const DefaultP = styled.p`
+  font-weight: 600;
+  margin: 3px;
 `;
 
 const Types = styled.div`
@@ -51,10 +60,6 @@ const PokemonType = styled.div`
   color: ${(props) => getTypeColor(props.type).textColor};
 `;
 
-const Li = styled.li`
-  text-transform: capitalize;
-`;
-
 export const TeamDetails = (props) => {
   return (
     <>
@@ -67,14 +72,16 @@ export const TeamDetails = (props) => {
               if (e == null) {
                 return (
                   <IndividualContainer key={`individual container-${i}`}>
-                    Hello World
+                    <ImgBorder src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png" />
+                    <DefaultP>???</DefaultP>
+                    <p>??? ???</p>
                   </IndividualContainer>
                 );
               } else {
                 return (
                   <IndividualContainer key={`actual-pokemon-${i}`}>
-                    <img src={e.sprites.front_default} />
-                    {e.name}
+                    <ImgBorder src={e.sprites.front_default} />
+                    <DefaultP>{e.name}</DefaultP>
                     <Types>
                       {e.types.map((type) => (
                         <PokemonType
@@ -85,15 +92,6 @@ export const TeamDetails = (props) => {
                         </PokemonType>
                       ))}
                     </Types>
-                    <ul>
-                      {e.stats.map((stat) => {
-                        return (
-                          <Li key={"li-item-" + stat.stat.name}>
-                            {stat.stat.name} : {stat.base_stat}
-                          </Li>
-                        );
-                      })}
-                    </ul>
                   </IndividualContainer>
                 );
               }
